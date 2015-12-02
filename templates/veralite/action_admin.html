@@ -1,0 +1,37 @@
+
+ <!-- action usual -->
+ [#if DATA_SOURCE="veradevices" || DATA_SOURCE=""#]
+ <!-- table veradevices search -->
+ [#if VIEW_MODE="search_veradevices" || VIEW_MODE=""#]
+  [#inc veradevices_search_admin.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table veradevices search -->
+ <!-- table veradevices edit -->
+ [#if VIEW_MODE="edit_veradevices"#]
+   [#inc veradevices_edit.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table veradevices edit -->
+ <!-- table veradevices view --> 
+ [#if VIEW_MODE="view_veradevices"#]
+   [#inc veradevices_view.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table veradevices view -->
+ [#endif DATA_SOURCE#]
+ <!-- action usual -->
+ [#if DATA_SOURCE="veraproperties"#]
+ <!-- table veraproperties search -->
+ [#if VIEW_MODE="search_veraproperties" || VIEW_MODE=""#]
+  [#inc veraproperties_search_admin.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table veraproperties search -->
+ <!-- table veraproperties edit -->
+ [#if VIEW_MODE="edit_veraproperties"#]
+   [#inc veraproperties_edit.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table veraproperties edit -->
+ <!-- table veraproperties view --> 
+ [#if VIEW_MODE="view_veraproperties"#]
+   [#inc veraproperties_view.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table veraproperties view -->
+ [#endif DATA_SOURCE#]

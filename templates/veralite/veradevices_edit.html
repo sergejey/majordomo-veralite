@@ -1,0 +1,87 @@
+<a href="?id=[#ID#]&view_mode=<#VIEW_MODE#>&mode=poll" class="btn btn-default"><#LANG_UPDATE#></a>
+
+<!-- Table 'veradevices' edit -->
+<form action="?" method="post" enctype="multipart/form-data" name="frmEdit" class="form-horizontal">
+[#if OK#]
+<div class="alert alert-success"><#LANG_DATA_SAVED#></div>
+[#endif OK#]
+[#if ERR#]
+<div class="alert alert-error"><#LANG_FILLOUT_REQURED#></div>
+[#endif ERR#]<fieldset>
+<!-- TITLE (varchar) -->
+<div class="form-group">
+ <label class="col-lg-3 control-label"[#if ERR_TITLE#] style="color:red;font-weight:bold"[#endif#]>
+ <#LANG_TITLE#>:
+ (*)
+ </label>
+ <div class="col-lg-4">[#TITLE#]</div>
+</div>
+<!-- UID (varchar) -->
+<div class="form-group">
+ <label class="col-lg-3 control-label"[#if ERR_UID#] style="color:red;font-weight:bold"[#endif#]>
+ UID:
+ (*)
+ </label>
+ <div class="col-lg-4">[#UID#]</div>
+</div>
+<!-- TYPE (select) -->
+<div class="form-group">
+ <label class="col-lg-3 control-label"[#if ERR_TYPE#] style="color:red;font-weight:bold"[#endif#]>
+ <#LANG_TYPE#>:
+ </label>
+<div class="col-lg-4">
+ [#TYPE#]
+</div>
+</div>
+
+<div class="form-group">
+<div>
+
+<table class="table table-stripped">
+ <tr>
+  <td><#LANG_TITLE#></td>
+  <td>SERVICE</td>
+  <td><#LANG_VALUE#></td>
+  <td><#LANG_LINKED_OBJECT#></td>
+  <td><#LANG_LINKED_PROPERTY#></td>
+  <td><#LANG_METHOD#></td>
+  <td><#LANG_UPDATED#></td>
+ </tr>
+ [#begin PROPERTIES#]
+ <tr>
+  <td valign="top">[#VARIABLE#]</td>
+  <td valign="top">[#SERVICE#]</td>
+  <td valign="top">[#VALUE#]</td>
+  [#if READ_ONLY!="1"#]
+  <td valign="top"><input type="text" name="linked_object[#ID#]" id="linked_object[#ID#]"></td>
+  <td valign="top"><input type="text" name="linked_property[#ID#]" id="linked_property[#ID#]"></td>
+  <td valign="top"><input type="text" name="linked_method[#ID#]" id="linked_method[#ID#]"></td>
+  [#module name="linkedobject" object_field="linked_object<#PROPERTIES.ID#>" property_field="linked_property<#PROPERTIES.ID#>" method_field="linked_method<#PROPERTIES.ID#>" width="200"#]
+  [#else#]
+  <td valign="top" colspan=3>&nbsp;</td>
+  [#endif#]
+  <td valign="top">[#UPDATED#]</td>
+ </tr>
+ [#end PROPERTIES#]
+</table> 
+
+</div>
+</div>
+
+<div class="form-group">
+        <div class="col-lg-offset-3 col-lg-4">
+ [#if ID!=""#]
+ <button type="submit" name="subm" value="Submit" class="btn btn-primary"><#LANG_SUBMIT#></button>
+ [#else ID#]
+ <button type="submit" name="subm" value="Add" class="btn btn-primary"><#LANG_ADD#></button>
+ [#endif ID#]
+ <a href="?data_source=<#DATA_SOURCE#>" class="btn btn-default "><#LANG_CANCEL#></a>
+<input type="hidden" name="id" value="<#ID#>">
+<input type="hidden" name="view_mode" value="<#VIEW_MODE#>">
+<input type="hidden" name="edit_mode" value="<#EDIT_MODE#>">
+<input type="hidden" name="mode" value="update">
+<input type="hidden" name="data_source" value="<#DATA_SOURCE#>">
+        </div>
+</div>
+</fieldset>
+</form>

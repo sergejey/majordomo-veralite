@@ -1,0 +1,111 @@
+<!-- table zwave_devices search -->
+<div>
+ <a href="hhttp://wiki.micasaverde.com/index.php/Luup_Requests" target=_blank>Vera API</a> connection status:
+ [#if API_STATUS="1"#]
+ <span style="color:green">ONLINE</span>
+ [#else API_STATUS#]
+ <span style="color:red">OFFLINE</span>
+ [#endif#]
+ [ <a href="#" onClick="$('#api_settings').toggle();return false;"><#LANG_SETUP#></a> ]
+</div>
+<div style="display:none" id='api_settings'>
+&nbsp;
+<form action="?" method="post" enctype="multipart/form-data" name="frmEdit" class="form-horizontal">
+<fieldset>
+<div class="form-group">
+ <label class="control-label"[#if ERR_ZWAVE_API_URL#] style="color:red;font-weight:bold"[#endif#]>
+ API URL:
+ (*)
+ </label>
+ <div class="controls"><input type="text" name="zwave_api_url" value="<#ZWAVE_API_URL#>" class="input"></div>
+</div>
+
+<!--#
+<div class="form-group">
+ <label class="control-label"[#if ERR_ZWAVE_API_PASSWORD#] style="color:red;font-weight:bold"[#endif#]>
+ API reset timeout:
+ </label>
+ <div class="controls"><input type="text" name="zwave_api_reset" value="<#ZWAVE_API_RESET#>" class="input"> (seconds, 0 to disable)</div>
+</div>
+#-->
+
+
+
+<div class="form-actions">
+<button type="submit" name="subm" value="Submit" class="btn btn-primary"><#LANG_UPDATE#></button>
+<input type="hidden" name="view_mode" value="update_settings">
+<input type="hidden" name="mode" value="update">
+</div>
+</fieldset>
+</form>
+</div>
+
+[#if API_STATUS="1"#]
+<p>
+<form action="?" method="get">
+<input type="submit" name="submit"  class="btn btn-default" value="Refresh network">
+<input type="hidden" name="view_mode" value="rescan">
+</form>
+</p>
+[#endif#]
+
+
+<!-- table veradevices search -->
+<table width=100% border=0><tr>
+<td valign=top>
+<!-- results -->
+[#if RESULT#]
+<!-- search results (list) -->
+<form action="?" method="post" name="frmList_veradevices" style="padding:0px" class="form">
+<table  align=center class="table table-striped">
+<thead>
+<tr>
+ <th>
+  <#LANG_TITLE#>
+ </th>
+ <th>
+  <#LANG_TYPE#>
+ </th>
+<td>&nbsp;</td>
+</tr>
+</thead>
+<tbody>
+[#begin RESULT#]
+<tr style="height:52px" class="hover_btn2">
+ <td style="vertical-align:middle"
+  >
+  <b>
+   [#TITLE#]
+  </a></b>
+ </td>
+ <td style="vertical-align:middle"
+   >
+  [#if TYPE!=""#]
+   [#TYPE#]
+  [#else#]
+   &nbsp;
+  [#endif#]
+ </td>
+ <td style="vertical-align:middle" width="1%" nowrap>
+  <div style="width:120px">
+  [#if "<#ACTION#>"=="admin"#]
+   <a href="?data_source=<#DATA_SOURCE#>&view_mode=edit_veradevices&id=[#ID#]" class="btn btn-default" title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
+    <a href="?data_source=<#DATA_SOURCE#>&view_mode=delete_veradevices&id=[#ID#]" onClick="return confirm('Are you sure?')" class="btn btn-default" title="Delete"><i class="glyphicon glyphicon-remove"></i></a>
+  [#endif ACTION#]
+  </div>
+ </td>
+</tr>
+[#end RESULT#]
+</tbody>
+</table>
+<input type="hidden" name="data_source" value="<#DATA_SOURCE#>">
+<input type="hidden" name="view_mode" value="multiple_veradevices">
+</form>
+<!-- / search results (list) -->
+[#else RESULT#]
+<p>
+<font color="red">No records found.</font>
+</p>
+[#endif RESULT#]
+<!-- / results -->
+</td></tr></table>
