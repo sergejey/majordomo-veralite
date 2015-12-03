@@ -203,7 +203,9 @@ function admin(&$out) {
  * @access public
  */
  function api_request($id, $params='') {
-  $data=getURL($this->config['ZWAVE_API_URL'].'data_request?output_format=json&id='.$id.'&'.$params);
+  $url=$this->config['ZWAVE_API_URL'].'data_request?output_format=json&id='.$id.'&'.$params;
+  DebMes("Veralite API request: ".$url);
+  $data=getURL($url);
   return $data;
  }
 
@@ -328,10 +330,10 @@ function admin(&$out) {
  function setProperty($property_id, $value) {
   $property=SQLSelectOne("SELECT * FROM veraproperties WHERE ID='".$property_id."'");
   $device=SQLSelectOne("SELECT * FROM veradevices WHERE ID='".$property['DEVICE_ID']."'");
-  if ($property['SERVICE']=='urn:upnp-org:serviceId:Dimming1' && $property['TITLE']=='LoadLevelTarget') {
+  if ($property['SERVICE']=='urn:upnp-org:serviceId:Dimming1' && $property['VARIABLE']=='LoadLevelTarget') {
    $result=$this->api_request('action', '&DeviceNum='.$device['DEVICE_NUM'].'&serviceId='.$property['SERVICE'].'&action=SetLoadLevelTarget&newLoadlevelTarget='.$value);
   }
-  if ($property['SERVICE']=='urn:upnp-org:serviceId:SwitchPower1' && $property['TITLE']=='Status') {
+  if ($property['SERVICE']=='urn:upnp-org:serviceId:SwitchPower1' && $property['VARIABLE']=='Status') {
    $result=$this->api_request('action', '&DeviceNum='.$device['DEVICE_NUM'].'&serviceId='.$property['SERVICE'].'&action=SetTarget&newTargetValue='.$value);
   }
   $this->pollDevice($device['ID']);
