@@ -22,7 +22,7 @@ class veralite extends module {
 */
 function veralite() {
   $this->name="veralite";
-  $this->title="ZWave Vera";
+  $this->title="Z-Wave Vera";
   $this->module_category="<#LANG_SECTION_DEVICES#>";
   $this->checkInstalled();
 }
@@ -150,13 +150,15 @@ function admin(&$out) {
    $this->config['ZWAVE_API_URL']=$zwave_api_url;
    $this->saveConfig();
    $this->view_mode='rescan';
+   //SQLExec("DELETE FROM veradevices");
+   //SQLExec("DELETE FROM veraproperties");
  }
 
  $out['API_STATUS']=$this->connect();
 
  if ($this->view_mode=='rescan') {
   $this->scanNetwork();
-  $this->redirect("?");
+  $this->redirect("?scanned=1");
  }
 
 
@@ -291,12 +293,14 @@ function admin(&$out) {
     $device_id=$devices[$i]['id'];
     $dev_rec=SQLSelectOne("SELECT * FROM veradevices WHERE DEVICE_NUM='".$device_id."'");
     $dev_rec['TITLE']=$devices[$i]['name'];
+    if (!$dev_rec['TITLE']) {
+     $dev_rec['TITLE']='Device '.$devices[$i]['device_type'];
+    }
     $dev_rec['TYPE']=$devices[$i]['device_type'];
     $dev_rec['UID']=$devices[$i]['local_udn'];
 
 
     if (!$dev_rec['ID']) {
-     $dev_rec=array();
      $dev_rec['DEVICE_NUM']=$device_id;
      $dev_rec['ID']=SQLInsert('veradevices', $dev_rec);
     } else {
@@ -429,6 +433,7 @@ veraproperties - Veralite properties
  veraproperties: UPDATED datetime
  veraproperties: LINKED_OBJECT varchar(255) NOT NULL DEFAULT ''
  veraproperties: LINKED_PROPERTY varchar(255) NOT NULL DEFAULT ''
+ veraproperties: LINKED_METHOD varchar(255) NOT NULL DEFAULT ''
 
 EOD;
   parent::dbInstall($data);

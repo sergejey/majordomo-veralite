@@ -82,9 +82,6 @@
 
   $total=count($properties);
   for($i=0;$i<$total;$i++) {
-   if ($properties[$i]['SERVICE']=='urn:micasaverde-com:serviceId:ZWaveDevice1') {
-    $properties[$i]['READ_ONLY']=1;
-   }
 
     if ($this->mode=='update') {
       global ${'linked_object'.$properties[$i]['ID']};
@@ -110,6 +107,10 @@
        //DebMes("Adding linked property ".$properties[$i]['LINKED_OBJECT'].".".$properties[$i]['LINKED_PROPERTY']);
       }
      }
+
+   if ($properties[$i]['SERVICE']=='urn:micasaverde-com:serviceId:ZWaveDevice1') {
+    $properties[$i]['READ_ONLY']=1;
+   }
 
 
   }
