@@ -341,7 +341,7 @@ function admin(&$out) {
   if ($property['SERVICE']=='urn:upnp-org:serviceId:SwitchPower1' && $property['VARIABLE']=='Status') {
    $result=$this->api_request('action', 'DeviceNum='.$device['DEVICE_NUM'].'&serviceId='.$property['SERVICE'].'&action=SetTarget&newTargetValue='.$value);
   }
-  $this->pollDevice($device['ID']);
+  //$this->pollDevice($device['ID']);
  }
 
 /**
