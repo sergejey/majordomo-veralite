@@ -268,7 +268,7 @@ function admin(&$out) {
      $validated=true;
      if ($property['LINKED_OBJECT'] && $property['LINKED_PROPERTY'] && $validated) {
       $old_value=getGlobal($property['LINKED_OBJECT'].'.'.$property['LINKED_PROPERTY']);
-      if ($prop['VALUE']!=$old_value) {
+      if ($property['VALUE']!=$old_value) {
        setGlobal($property['LINKED_OBJECT'].'.'.$property['LINKED_PROPERTY'], $property['VALUE'], array($this->name=>'0'));
       }
      }
