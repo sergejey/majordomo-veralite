@@ -417,7 +417,7 @@ function usual(&$out) {
 *
 * @access private
 */
- function dbInstall() {
+ function dbInstall($data) {
 /*
 veradevices - Veralite devices
 veraproperties - Veralite properties
